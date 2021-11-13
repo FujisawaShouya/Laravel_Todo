@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Todo;
 use App\Http\Requests\TodoRequest;
+use App\Http\Requests\UpdateRequest;
 use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
@@ -37,6 +38,14 @@ class TodoController extends Controller
         ]);
         $todo->save();
         
+        return redirect('/');
+    }
+
+    public function update(UpdateRequest $request) {
+        Todo::where('id', $request->id)->update([
+            'content'=>$request->updated_content
+        ]);
+
         return redirect('/');
     }
 

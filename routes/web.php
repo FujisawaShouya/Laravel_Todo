@@ -19,6 +19,8 @@ Route::get('/logout', [TodoController::class, 'logout']);
 
 Route::post('/create', [TodoController::class, 'create']);
 
+Route::post('/update', [TodoController::class, 'update']);
+
 Route::get('/attendance', function () {
     return view('attendance.attendance');
 });
