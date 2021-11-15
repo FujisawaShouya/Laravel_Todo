@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Todo;
+use App\Models\Complete;
 use App\Http\Requests\TodoRequest;
 use App\Http\Requests\UpdateRequest;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class TodoController extends Controller
 {
@@ -45,6 +47,21 @@ class TodoController extends Controller
         Todo::where('id', $request->id)->update([
             'content'=>$request->updated_content
         ]);
+
+        return redirect('/');
+    }
+
+    public function complete(Request $request) {
+        $user = Auth::user();
+        $date = Carbon::now();
+        $list = Todo::where('id', $request->id)->value('content');
+        Complete::create([
+            'user_id'=> $user->id,
+            'list'=> $list,
+            'completed_date'=> $date->format('Y-m-d')
+        ]);
+
+        Todo::where('id', $request->id)->delete();
 
         return redirect('/');
     }

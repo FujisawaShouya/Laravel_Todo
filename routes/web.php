@@ -21,6 +21,8 @@ Route::post('/create', [TodoController::class, 'create']);
 
 Route::post('/update', [TodoController::class, 'update']);
 
+Route::post('/complete', [TodoController::class, 'complete']);
+
 Route::get('/attendance', function () {
     return view('attendance.attendance');
 });

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   <title>ToDoアプリ</title>
 </head>
-<body class="h-full">
+<body class="flex flex-col min-h-screen">
   <div class="flex justify-between">
     <p class="text-4xl font-medium py-5 pl-9">ToDo</p>
     <div>
@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <div class="bg-gray-100 h-5/6">
+  <div class="bg-gray-100 h-full">
     <h2>{{Auth::user()->name}}さんのToDo List</h2>
     @error('content')
     <h3>Error:{{$message}}</h3>
@@ -38,7 +38,7 @@
       @error('updated_content')
       <h3>Error: {{$message}} </h3>
       @enderror
-      
+
       @foreach($items as $item)
       <tr>
         <td> {{$item -> deadline}} </td>
@@ -51,6 +51,8 @@
         </form>
 
         <form action="/complete" method="POST">
+        @csrf
+        <input type="hidden" name="id" value="{{$item -> id}}">
         <td><button type="submit" name="complete">完了</button></td>
         </form>
       </tr>
@@ -58,8 +60,8 @@
     </table>
   </div>
 
-  <div class="text-center">
-    <p class="block pt-2 font-semibold text-center">ToDo, inc</p>
+  <div class="text-center mt-auto">
+    <p class="block pt-1 font-semibold text-center">ToDo, inc</p>
   </div>
 </body>
 </html>
