@@ -88,8 +88,6 @@ class TodoController extends Controller
         ]);
         Complete::where('id', $request->id)->delete();
 
-        $items = Complete::where('user_id', $user->id)->get();
-
-        return view('todo.complete', ['items'=> $items]);
+        return redirect('/list');
     }
 }
