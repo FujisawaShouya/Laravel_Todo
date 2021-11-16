@@ -55,10 +55,12 @@ class TodoController extends Controller
         $user = Auth::user();
         $date = Carbon::now();
         $list = Todo::where('id', $request->id)->value('content');
+        $deadline = Todo::where('id', $request->id)->value('deadline');
         Complete::create([
             'user_id'=> $user->id,
             'list'=> $list,
-            'completed_date'=> $date->format('Y-m-d')
+            'completed_date'=> $date->format('Y-m-d'),
+            'deadline'=> $deadline
         ]);
 
         Todo::where('id', $request->id)->delete();
@@ -66,5 +68,28 @@ class TodoController extends Controller
         return redirect('/');
     }
 
-    
+    public function pagenate() {
+        if(Auth::check()) {
+            $user = Auth::user();
+            $items = Complete::where('user_id', $user->id)->get();
+
+            return view('todo.complete', ['items'=> $items]);
+        }
+    }
+
+    public function relisting(Request $request) {
+        $user = Auth::user();
+        $list = Complete::where('id', $request->id)->value('list');
+        $deadline = Complete::where('id', $request->id)->value('deadline');
+        Todo::create([
+            'user_id'=> $user->id,
+            'content'=> $list,
+            'deadline'=> $deadline
+        ]);
+        Complete::where('id', $request->id)->delete();
+
+        $items = Complete::where('user_id', $user->id)->get();
+
+        return view('todo.complete', ['items'=> $items]);
+    }
 }

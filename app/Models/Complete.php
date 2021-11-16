@@ -13,6 +13,7 @@ class Complete extends Model
         'id',
         'user_id',
         'list',
-        'completed_date'
+        'completed_date',
+        'deadline'
     ];
 }

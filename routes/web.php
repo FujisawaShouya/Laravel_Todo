@@ -21,7 +21,13 @@ Route::post('/create', [TodoController::class, 'create']);
 
 Route::post('/update', [TodoController::class, 'update']);
 
+Route::get('/complete', [TodoController::class, 'complete']);
 Route::post('/complete', [TodoController::class, 'complete']);
+
+Route::get('/list', [TodoController::class, 'pagenate']);
+
+Route::get('/relisted', [TodoController::class, 'relisting']);
+Route::post('/relisted', [TodoController::class, 'relisting']);
 
 Route::get('/attendance', function () {
     return view('attendance.attendance');

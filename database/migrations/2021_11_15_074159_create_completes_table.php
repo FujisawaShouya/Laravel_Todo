@@ -18,6 +18,7 @@ class CreateCompletesTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->string('list')->nullable();
             $table->date('completed_date')->nullable();
+            $table->date('deadline')->nullable();
             $table->timestamps();
         });
     }
