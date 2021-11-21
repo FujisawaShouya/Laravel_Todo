@@ -43,9 +43,15 @@ class TodoController extends Controller
         return redirect('/');
     }
 
-    public function update(UpdateRequest $request) {
-        Todo::where('id', $request->id)->update([
-            'content'=>$request->updated_content
+    public function updatepage(Request $request) {
+        $items = Todo::where('id', $request->id)->get();
+        return view('todo.update', ['items'=> $items]);
+    }
+
+    public function update(Request $request) {
+        $content = Todo::where('id', $request->id)->update([
+            'content'=> $request->updated_content,
+            'deadline'=> $request->updated_deadline,
         ]);
 
         return redirect('/');

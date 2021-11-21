@@ -14,6 +14,7 @@ use App\Http\Controllers\TodoController;
 */
 
 Route::get('/', [TodoController::class, 'index']);
+Route::post('/', [TodoController::class, 'index']);
 
 Route::get('/logout', [TodoController::class, 'logout']);
 
@@ -28,6 +29,9 @@ Route::get('/list', [TodoController::class, 'pagenate']);
 
 Route::get('/relisted', [TodoController::class, 'relisting']);
 Route::post('/relisted', [TodoController::class, 'relisting']);
+
+Route::get('/update_page', [TodoController::class, 'updatepage']);
+Route::post('/update_page', [TodoController::class, 'updatepage']);
 
 Route::get('/attendance', function () {
     return view('attendance.attendance');

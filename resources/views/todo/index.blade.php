@@ -35,19 +35,16 @@
         <th>更新</th>
         <th>完了</th>
       </tr>
-      @error('updated_content')
-      <h3>Error: {{$message}} </h3>
-      @enderror
 
       @foreach($items as $item)
       <tr>
         <td> {{$item -> deadline}} </td>
-        <form action="/update" method="POST">
+        <form action="/update_page" method="POST">
         @csrf
         <input type="hidden" name="id" value="{{$item -> id}}">
 
-        <td><input type="text" name="updated_content" value="{{$item -> content}}"></td>
-        <td><button type="submit" name="update">更新</button></td>
+        <td>{{$item -> content}}</td>
+        <td><button type="submit" name="update_page">更新</button></td>
         </form>
 
         <form action="/complete" method="POST">
